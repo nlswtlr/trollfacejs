@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>trollface test</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <h1>trollface test</h1>
+    <button id="start">Start</button> | <button id="stop">Stop</button>
+    <script src="/dist/trollfacejs.js"></script>
+    <script>
+      const start = document.querySelector("#start");
+      const stop = document.querySelector("#stop");
+
+      start.addEventListener("click", () => {
+        trollfacejs.start();
+      });
+      stop.addEventListener("click", () => {
+        trollfacejs.stop();
+      });
+    </script>
+  </body>
+</html>
