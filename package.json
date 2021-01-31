@@ -18,7 +18,6 @@
   "unpkg": "dist/trollfacejs.umd.js",
   "types": "dist/trollface.d.ts",
   "scripts": {
-    "install": "npm run build",
     "build": "microbundle -o dist --no-sourcemap",
     "dev": "concurrently \"microbundle --no-sourcemap -o test/dist watch\" \"serve test\""
   },
