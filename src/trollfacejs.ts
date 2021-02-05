@@ -1,43 +1,22 @@
-import trollface from './assets/trollface';
-
-type TrollFace = {
-  start: () => void;
-  stop: () => void;
-};
-
+import fetchTrollface from './lib/fetchTrollface';
+import determainSlideDir from './lib/determainSlideDir';
+import { TrollFace, StyleProps, SlideDir } from './types';
 declare global {
   interface Window {
     trollfacejs: TrollFace;
   }
 }
 
-type StyleProps = {
-  position?: string;
-  left?: number;
-  bottom?: number;
-  transform?: {
-    translate3d: {
-      x: number;
-      y: number;
-    };
-  };
-  opacity?: number;
-};
-
-type SlideDir = 'right' | 'left';
-
-const determainSlideDir = (currentDir: SlideDir, leftOffset: number): SlideDir => {
-  if (currentDir === 'right' && leftOffset >= window.innerWidth) {
-    return 'left';
-  } else if (currentDir === 'left' && leftOffset <= 200) {
-    return 'right';
-  }
-  return currentDir;
-};
-
 const TrollFaceJS = () => {
   let animationFrameRef: number = null;
   let trollfaceRef: HTMLOrSVGImageElement = null;
+  let trollfaceSvgAsString: string = null;
+
+  fetchTrollface()
+    .then((face) => {
+      trollfaceSvgAsString = face;
+    })
+    .catch((err) => console.error(err));
 
   const animate = () => {
     const stylesBaseValues: StyleProps = {
@@ -95,14 +74,18 @@ const TrollFaceJS = () => {
     const body = document.querySelector('body');
 
     if (!body) {
-      throw new Error('could not find that body - wtf?!');
+      console.error('could not find that body - wtf?!');
     }
 
     if (document.querySelector('#thetrollface')) {
-      throw new Error('trollface is already attached!');
+      console.error('trollface is already attached!');
     }
 
-    body.insertAdjacentHTML('beforeend', trollface);
+    if (!trollfaceSvgAsString) {
+      console.error('trollface was not fetch yet - lulz');
+    }
+
+    body.insertAdjacentHTML('beforeend', trollfaceSvgAsString);
     trollfaceRef = document.querySelector('#thetrollface');
 
     animate();
@@ -126,5 +109,3 @@ const TrollFaceJS = () => {
 if (typeof window !== 'undefined') {
   window.trollfacejs = TrollFaceJS();
 }
-
-export {};
