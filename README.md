@@ -1,4 +1,8 @@
-# Trollface.js
+# trollface.js
+
+<p align="center">
+  <img width="400" height="225" src="preview.gif">
+</p>
 
 Brings the :trollface: to your website!
 
