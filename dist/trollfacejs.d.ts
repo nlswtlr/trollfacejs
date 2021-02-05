@@ -1,10 +1,6 @@
-declare type TrollFace = {
-    start: () => void;
-    stop: () => void;
-};
+import { TrollFace } from './types';
 declare global {
     interface Window {
         trollfacejs: TrollFace;
     }
 }
-export {};
