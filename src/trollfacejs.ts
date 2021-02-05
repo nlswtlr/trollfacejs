@@ -11,10 +11,6 @@ declare global {
   }
 }
 
-if (typeof window === 'undefined') {
-  throw new Error('needs to run in the browser context');
-}
-
 type StyleProps = {
   position?: string;
   left?: number;
@@ -127,6 +123,8 @@ const TrollFaceJS = () => {
   };
 };
 
-window.trollfacejs = TrollFaceJS();
+if (typeof window !== 'undefined') {
+  window.trollfacejs = TrollFaceJS();
+}
 
 export {};
